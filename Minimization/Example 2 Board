@@ -42,3 +42,11 @@ for i, test in enumerate(test_cases_ex2):
     res = run_ex2_dfa(test)
     expected = "ACCEPT" if i < 3 else "REJECT"
     print(f"Input: {test:<8} -> {'ACCEPT' if res else 'REJECT':<6} (Expected: {expected})")
+
+#  EXAMPLE 2 (BOARD 2) 
+# Test 1 [1       ]: ACCEPT (Expected: ACCEPT)
+# Test 2 [01      ]: ACCEPT (Expected: ACCEPT)
+# Test 3 [0001    ]: ACCEPT (Expected: ACCEPT)
+# Test 4 [10      ]: REJECT (Expected: REJECT)
+# Test 5 [11      ]: REJECT (Expected: REJECT)
+# Test 6 [00      ]: REJECT (Expected: REJECT)

@@ -1,0 +1,67 @@
+# EXAMPLE 4: DFA MINIMIZATION
+
+# States (Q): {A, B, C, D, E, F}
+
+# Alphabet (Σ): {0, 1}
+
+# Start State: A
+
+# Accepting State (F): {C, E}
+
+# P0 = {{A, B, D, F}, {C, E}} P1 = {{A, D}, {B, F}, {C, E}} P2 = {{A, D}, {B, F}, {C, E}}
+
+# Minimized Transition Table:
+
+# | State | 0 | 1 |
+# | -> AD | BF | AD |
+# |    BF | AD | CE |
+# |   *CE | CE | CE |
+
+from enum import Enum, auto
+
+class StateEx4(Enum):
+    AD = auto()   # Combined start states A, D
+    BF = auto()   # Combined intermediate states B, F
+    CE = auto()   # Combined accepting states C, E
+    TRAP = auto()
+
+def transition_ex4(current: StateEx4, symbol: str) -> StateEx4:
+    if current == StateEx4.AD:
+        return StateEx4.BF if symbol == '0' else (StateEx4.AD if symbol == '1' else StateEx4.TRAP)
+    elif current == StateEx4.BF:
+        return StateEx4.AD if symbol == '0' else (StateEx4.CE if symbol == '1' else StateEx4.TRAP)
+    elif current == StateEx4.CE:
+        return StateEx4.CE if symbol in ('0', '1') else StateEx4.TRAP
+    return StateEx4.TRAP
+
+def run_ex4_dfa(input_str: str) -> bool:
+    current = StateEx4.AD
+    for char in input_str:
+        current = transition_ex4(current, char)
+    return current == StateEx4.CE
+
+test_cases_ex4 = [
+    # 3 Accepted Cases
+    "01",
+    "101",
+    "0001",
+    # 3 Rejected Cases
+    "0",
+    "11",
+    "00"
+]
+
+print("=== EXAMPLE 4 TESTS ===")
+for i, test in enumerate(test_cases_ex4):
+    res = run_ex4_dfa(test)
+    expected = "ACCEPT" if i < 3 else "REJECT"
+    print(f"Input: {test:<8} -> {'ACCEPT' if res else 'REJECT':<6} (Expected: {expected})")
+
+
+# EXAMPLE 4
+# Test 1 [01      ]: ACCEPT (Expected: ACCEPT)
+# Test 2 [101     ]: ACCEPT (Expected: ACCEPT)
+# Test 3 [0001    ]: ACCEPT (Expected: ACCEPT)
+# Test 4 [0       ]: REJECT (Expected: REJECT)
+# Test 5 [11      ]: REJECT (Expected: REJECT)
+# Test 6 [00      ]: REJECT (Expected: REJECT)

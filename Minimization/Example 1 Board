@@ -1,28 +1,28 @@
-EXAMPLE 1: DFA MINIMIZATION
+# EXAMPLE 1: DFA MINIMIZATION
 
-States (Q): {A, B, C, D, E}
+# States (Q): {A, B, C, D, E}
 
-Alphabet (Σ): {0, 1}
+# Alphabet (Σ): {0, 1}
 
-Start State: A
+# Start State: A
 
-Accepting State (F): {E}
+# Accepting State (F): {E}
 
-P0 = {{A, B, C, D}, {E}}
+# P0 = {{A, B, C, D}, {E}}
 
-P1 = {{A, B, C}, {D}, {E}}
+# P1 = {{A, B, C}, {D}, {E}}
 
-P2 = {{A, C}, {B}, {D}, {E}}
+# P2 = {{A, C}, {B}, {D}, {E}}
 
-P3 = {{A, C}, {B}, {D}, {E}}
+# P3 = {{A, C}, {B}, {D}, {E}}
 
-Minimized Transition Table:
+# Minimized Transition Table:
 
-| State | 0 | 1 |
-| -> AC | B | AC |
-|    B | B | D |
-|    D | B | E |
-|   *E | B | AC |
+# | State | 0 | 1 |
+# | -> AC | B | AC |
+# |    B | B | D |
+# |    D | B | E |
+# |   *E | B | AC |
 
 
 from enum import Enum, auto
@@ -58,3 +58,11 @@ for i, test in enumerate(test_cases_ex1):
     res = run_ex1_dfa(test)
     expected = "ACCEPT" if i < 3 else "REJECT"
     print(f"Input: {test:<8} -> {'ACCEPT' if res else 'REJECT':<6} (Expected: {expected})")
+
+#      EXAMPLE 1 (BOARD 1)
+# Test 1 [011     ]: ACCEPT (Expected: ACCEPT)
+# Test 2 [1011    ]: ACCEPT (Expected: ACCEPT)
+# Test 3 [0011    ]: ACCEPT (Expected: ACCEPT)
+# Test 4 [0110    ]: REJECT (Expected: REJECT)
+# Test 5 [01      ]: REJECT (Expected: REJECT)
+# Test 6 [111     ]: REJECT (Expected: REJECT)

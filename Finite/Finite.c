@@ -1,4 +1,3 @@
-<img width="1426" height="2048" alt="1e3ca96c-7062-4dc5-81d8-0fbfa8a2d3e6" src="https://github.com/user-attachments/assets/24593d58-19a2-4fa4-b338-a8c86597501a" />
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -74,13 +73,13 @@ int main() {
 }
 
 
-Sample Output:
-Input: /*a*/        Result: ACCEPT
-Input: /**/         Result: ACCEPT
-Input: /***/        Result: ACCEPT
-Input: /*a*a*/      Result: ACCEPT
-Input: /*a/a*/      Result: ACCEPT
-Input: /**          Result: REJECT
-Input: /*/          Result: REJECT
-Input: /**/a        Result: REJECT
-Input: //aaaa       Result: REJECT
+// Sample Output:
+// Input: /*a*/        Result: ACCEPT
+// Input: /**/         Result: ACCEPT
+// Input: /***/        Result: ACCEPT
+// Input: /*a*a*/      Result: ACCEPT
+// Input: /*a/a*/      Result: ACCEPT
+// Input: /**          Result: REJECT
+// Input: /*/          Result: REJECT
+// Input: /**/a        Result: REJECT
+// Input: //aaaa       Result: REJECT

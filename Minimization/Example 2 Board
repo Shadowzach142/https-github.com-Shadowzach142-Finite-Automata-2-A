@@ -1,0 +1,44 @@
+# EXAMPLE 2: DFA MINIMIZATION
+
+# States (Q): {A, B, C, D, E, F}
+
+# Alphabet (Σ): {0, 1}
+
+# Start State: A
+
+# Accepting State (F): {C, D, E}
+
+# P0 = {{A, B, F}, {C, D, E}} P1 = {{A, B}, {F}, {C, D, E}} P2 = {{A, B}, {F}, {C, D, E}}
+
+# Minimized Transition Table:
+
+# | State | 0 | 1 |
+# | -> AB | AB | CDE |
+# |  *CDE | F | F |
+# |     F | F | F |
+
+from enum import Enum, auto
+
+class StateEx2(Enum):
+    AB = auto()
+    CDE = auto()
+    F_TRAP = auto()
+
+def transition_ex2(current: StateEx2, symbol: str) -> StateEx2:
+    if current == StateEx2.AB:
+        return StateEx2.AB if symbol == '0' else (StateEx2.CDE if symbol == '1' else StateEx2.F_TRAP)
+    return StateEx2.F_TRAP
+
+def run_ex2_dfa(input_str: str) -> bool:
+    current = StateEx2.AB
+    for char in input_str:
+        current = transition_ex2(current, char)
+    return current == StateEx2.CDE
+
+test_cases_ex2 = ["1", "01", "0001", "10", "11", "00"]
+
+print("=== EXAMPLE 2 TESTS ===")
+for i, test in enumerate(test_cases_ex2):
+    res = run_ex2_dfa(test)
+    expected = "ACCEPT" if i < 3 else "REJECT"
+    print(f"Input: {test:<8} -> {'ACCEPT' if res else 'REJECT':<6} (Expected: {expected})")

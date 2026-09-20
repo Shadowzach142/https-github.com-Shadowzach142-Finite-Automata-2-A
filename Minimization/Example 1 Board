@@ -1,0 +1,60 @@
+EXAMPLE 1: DFA MINIMIZATION
+
+States (Q): {A, B, C, D, E}
+
+Alphabet (Σ): {0, 1}
+
+Start State: A
+
+Accepting State (F): {E}
+
+P0 = {{A, B, C, D}, {E}}
+
+P1 = {{A, B, C}, {D}, {E}}
+
+P2 = {{A, C}, {B}, {D}, {E}}
+
+P3 = {{A, C}, {B}, {D}, {E}}
+
+Minimized Transition Table:
+
+| State | 0 | 1 |
+| -> AC | B | AC |
+|    B | B | D |
+|    D | B | E |
+|   *E | B | AC |
+
+
+from enum import Enum, auto
+
+class StateEx1(Enum):
+    AC = auto()
+    B = auto()
+    D = auto()
+    E = auto()
+    TRAP = auto()
+
+def transition_ex1(current: StateEx1, symbol: str) -> StateEx1:
+    if current == StateEx1.AC:
+        return StateEx1.B if symbol == '0' else (StateEx1.AC if symbol == '1' else StateEx1.TRAP)
+    elif current == StateEx1.B:
+        return StateEx1.B if symbol == '0' else (StateEx1.D if symbol == '1' else StateEx1.TRAP)
+    elif current == StateEx1.D:
+        return StateEx1.B if symbol == '0' else (StateEx1.E if symbol == '1' else StateEx1.TRAP)
+    elif current == StateEx1.E:
+        return StateEx1.B if symbol == '0' else (StateEx1.AC if symbol == '1' else StateEx1.TRAP)
+    return StateEx1.TRAP
+
+def run_ex1_dfa(input_str: str) -> bool:
+    current = StateEx1.AC
+    for char in input_str:
+        current = transition_ex1(current, char)
+    return current == StateEx1.E
+
+test_cases_ex1 = ["011", "1011", "0011", "0110", "01", "111"]
+
+print("=== EXAMPLE 1 TESTS ===")
+for i, test in enumerate(test_cases_ex1):
+    res = run_ex1_dfa(test)
+    expected = "ACCEPT" if i < 3 else "REJECT"
+    print(f"Input: {test:<8} -> {'ACCEPT' if res else 'REJECT':<6} (Expected: {expected})")
